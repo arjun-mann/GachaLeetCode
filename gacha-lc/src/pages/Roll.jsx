@@ -3,10 +3,13 @@ import Card from "../components/Card"
 import "./Roll.css";
 import googleLogo from "../assets/google.svg"
 import amazonLogo from "../assets/amazon.svg"
+import appleLogo from "../assets/apple.svg"
+import facebookLogo from "../assets/facebook.svg"
+
 
 function Roll() {
-  const navigate = useNavigate()
-  const randomCards = [
+  const navigate = useNavigate();
+  const allCards = [
     {
       image: googleLogo
     },
@@ -14,10 +17,19 @@ function Roll() {
       image: amazonLogo
     },
     {
-      image: googleLogo
+      image: appleLogo
+    },
+    {
+      image: facebookLogo
     }
   ];
 
+  const getRandomCards = (arr, count) => {
+    const shuffled = [...arr].sort(() => Math.random() - .5);
+    return shuffled.slice(0, count)
+  };
+
+  const randomCards = getRandomCards(allCards, 3);
 
   return (
     <>
