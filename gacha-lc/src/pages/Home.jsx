@@ -5,10 +5,17 @@ function Home() {
 
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
+      <h1>Home page</h1>
+      <div className="rollmenu">
+        <h3>Roll options</h3>
         <button onClick={() => navigate("/roll")}>
-          Roll
+          Roll x1
+        </button>
+        <button onClick={() => navigate("/roll")}>
+          Roll x10
+        </button>
+        <button onClick={() => navigate("/roll")}>
+          Roll x20
         </button>
       </div>
     </>
