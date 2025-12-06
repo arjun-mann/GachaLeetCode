@@ -9,13 +9,7 @@ function Home() {
       <div className="rollmenu">
         <h3>Roll options</h3>
         <button onClick={() => navigate("/roll")}>
-          Roll x1
-        </button>
-        <button onClick={() => navigate("/roll")}>
-          Roll x10
-        </button>
-        <button onClick={() => navigate("/roll")}>
-          Roll x20
+          Roll x3
         </button>
       </div>
     </>
