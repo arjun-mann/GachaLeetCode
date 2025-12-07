@@ -1,10 +1,12 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from db import models
+from db.database import engine
 from routes.auth import router as auth_router
 from routes.users import router as users_router
 from routes.rolls import router as rolls_router
 
-models.Base.metadata.creeate_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 origins = ["http://localhost:5173","http://127.0.0.1:5173"]
 app.add_middleware(
@@ -18,6 +20,6 @@ app.include_router(auth_router, prefix="/auth", tags=["Auth"])
 app.include_router(users_router, prefix="/users", tags=["Users"])
 app.include_router(rolls_router, prefix="/rolls", tags=["Rolls"])
 
-@router.get("/health")
+@app.get("/health")
 def health():
     return {"status" : "ok"}
