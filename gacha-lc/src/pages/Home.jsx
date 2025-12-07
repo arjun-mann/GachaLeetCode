@@ -11,6 +11,10 @@ function Home() {
         <button onClick={() => navigate("/roll")}>
           Roll x3
         </button>
+        <button onClick={() => navigate("/inventory")}>
+          Inventory
+        </button>
+        <h3>Fuel points: 3</h3>
       </div>
     </>
   )
