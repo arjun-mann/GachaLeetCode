@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from db.database import SessionLocal
 from db.models import User
 from passlib.context import CryptContext
 from schemas import UserCreate
-
-from jose import jwt
+from jose import jwt, JWTError
 from datetime import datetime, timezone, timedelta
+
 SECRET_KEY = "temp_secret"
 ALGORITHM = "HS256"
 
@@ -36,6 +36,21 @@ def get_db():
         yield db
     finally:
         db.close()
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl = "/login")
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms = [ALGORITHM])
+        user_id = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(401, "Invalid token")
+    except JWTError:
+        raise HTTPException(401, "Invalid token")
+    user = db.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(401, "User not found")
+    return user
         
 @router.post("/register")
 def register(user: UserCreate, db: Session = Depends(get_db)):
