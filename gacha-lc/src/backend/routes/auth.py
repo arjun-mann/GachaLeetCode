@@ -65,7 +65,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     return {"message" : "User created successfully"}
     
 @router.post("/login")
-def login(form: OAuth2PasswordRequestForm, db: Session = Depends(get_db)):
+def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == form.username).first()
     if not user or not verify_password(form.password, user.hashed_passowrd):
         raise HTTPException(401, "Invalid login")

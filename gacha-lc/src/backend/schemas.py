@@ -13,3 +13,12 @@ class UserRead(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    
+class RollType(BaseModel):
+    number: int
+    
+class CardRead(BaseModel):
+    id: int
+    name: str
+    class Config:
+        orm_mode = True

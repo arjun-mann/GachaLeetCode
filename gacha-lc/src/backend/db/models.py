@@ -21,6 +21,7 @@ class InventoryItem(Base):
     id = Column(Integer, primary_key = True)
     user_id = Column(Integer, ForeignKey("users.id"))
     card_id = Column(Integer, ForeignKey("cards.id"))
+    count = Column(Integer, default=1)
     user = relationship("User", back_populates = "inventory")
     card = relationship("Card")
     
